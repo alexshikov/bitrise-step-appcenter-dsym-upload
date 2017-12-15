@@ -1,0 +1,46 @@
+format_version: 4
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+
+app:
+  envs:
+  # If you want to share this step into a StepLib
+  - BITRISE_STEP_ID: appcenter-dsym-upload
+  - BITRISE_STEP_VERSION: "0.1.0"
+  - BITRISE_STEP_GIT_CLONE_URL: https://github.com/alexshikov/bitrise-step-appcenter-dsym-upload
+  - MY_STEPLIB_REPO_FORK_GIT_URL: https://github.com/alexshikov/bitrise-steplib.git
+
+workflows:
+  test:
+    steps:
+     - path::./:
+        title: Step Test
+
+  # ----------------------------------------------------------------
+  # --- workflows to Share this step into a Step Library
+  audit-this-step:
+    steps:
+    - script:
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+            stepman audit --step-yml ./step.yml
+
+  share-this-step:
+    envs:
+      # if you want to share this step into a StepLib
+      - MY_STEPLIB_REPO_FORK_GIT_URL: $MY_STEPLIB_REPO_FORK_GIT_URL
+      - BITRISE_STEP_ID: $BITRISE_STEP_ID
+      - BITRISE_STEP_VERSION: $BITRISE_STEP_VERSION
+      - BITRISE_STEP_GIT_CLONE_URL: $BITRISE_STEP_GIT_CLONE_URL
+    before_run:
+    - audit-this-step
+    steps:
+    - script:
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+            bitrise share start -c "${MY_STEPLIB_REPO_FORK_GIT_URL}"
+            bitrise share create --stepid "${BITRISE_STEP_ID}" --tag "${BITRISE_STEP_VERSION}" --git "${BITRISE_STEP_GIT_CLONE_URL}"
+            bitrise share finish
