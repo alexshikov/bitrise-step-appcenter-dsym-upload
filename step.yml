@@ -14,9 +14,9 @@ description: |
   It is important to [obtain API Token from AppCenter](https://appcenter.ms/settings/apitokens)
   to use this step.
 
-website: https://github.com/SeeD-Seifer/bitrise-step-appcenter-dsym-upload
-source_code_url: https://github.com/SeeD-Seifer/bitrise-step-appcenter-dsym-upload
-support_url: https://github.com/SeeD-Seifer/bitrise-step-appcenter-dsym-upload/issues
+website: https://github.com/alexshikov/bitrise-step-appcenter-dsym-upload
+source_code_url: https://github.com/alexshikov/bitrise-step-appcenter-dsym-upload
+support_url: https://github.com/alexshikov/bitrise-step-appcenter-dsym-upload/issues
 host_os_tags:
   - osx-10.10
   - ubuntu-16.04
