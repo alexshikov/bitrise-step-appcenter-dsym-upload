@@ -11,6 +11,6 @@ fi
 
 envman add --key BITRISE_DSYM_PATH
 
-appcenter crashes upload-symbols -s $dsym_path -a $app_id --token $api_token --quiet
+appcenter crashes upload-symbols -s "$dsym_path" -a $app_id --token $api_token --quiet
 
 exit 0
